@@ -1,0 +1,56 @@
+<div class="tarjetas-list">
+  <div class="tarjetas-grid">
+    <div *ngFor="let tarjeta of tarjetas" class="tarjeta-card">
+      <!-- Card Visual -->
+      <div class="tarjeta-visual" [ngClass]="'moneda-' + tarjeta.moneda.toLowerCase()">
+        <div class="tarjeta-chip">
+          <i class="pi pi-credit-card"></i>
+        </div>
+
+        <div class="tarjeta-numero">
+          {{ tarjeta.numeroMascarado }}
+        </div>
+
+        <div class="tarjeta-footer">
+          <div class="tarjeta-info">
+            <span class="tarjeta-tipo">{{ 'tarjeta' | translate | uppercase }}</span>
+            <span class="tarjeta-chip-id">{{ tarjeta.chip }}</span>
+          </div>
+          <div class="tarjeta-logo">
+            TERRA
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Details -->
+      <div class="tarjeta-details">
+        <div class="detail-row">
+          <span class="detail-label">{{ tarjeta.chip }}</span>
+          <span class="detail-value" [ngClass]="getStatusClass(tarjeta.estado)">
+            {{ tarjeta.estado | uppercase }}
+          </span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">
+            ${{ tarjeta.saldoActual.toLocaleString() }} / ${{ tarjeta.saldoLimite.toLocaleString() }} {{ tarjeta.moneda }}
+          </span>
+          <span class="detail-percentage">{{ tarjeta.porcentajeUso }}%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            [style.width.%]="tarjeta.porcentajeUso"
+            [style.background-color]="getProgressColor(tarjeta.porcentajeUso)"
+          ></div>
+        </div>
+
+        <div *ngIf="tarjeta.estado === 'bloqueada'" class="alert-message">
+          <i class="pi pi-exclamation-triangle"></i>
+          {{ 'recargaUrgente' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

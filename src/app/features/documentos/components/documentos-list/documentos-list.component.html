@@ -1,0 +1,53 @@
+<div class="documentos-list">
+  <div class="modulos-container">
+    <div *ngFor="let modulo of filteredModulosDocumentos" class="modulo-box">
+      <!-- Module Header -->
+      <div class="modulo-header">
+        <h3>
+          <i class="pi pi-folder"></i>
+          {{ modulo.nombre }}
+        </h3>
+      </div>
+
+      <!-- Documents Grid -->
+      <div class="documentos-grid">
+        <div *ngFor="let documento of modulo.documentos" class="documento-card">
+          <div class="documento-icon">
+            <i [ngClass]="getFileIcon(documento.tipo)"></i>
+          </div>
+
+          <div class="documento-info">
+            <h4 class="documento-nombre" [title]="documento.nombre">
+              {{ documento.nombre }}
+            </h4>
+            <p class="documento-fecha">{{ documento.fecha }}</p>
+          </div>
+
+          <div class="documento-actions">
+            <button
+              class="btn-action btn-download"
+              (click)="downloadDocument(documento)"
+              [title]="'descargar' | translate"
+            >
+              <i class="pi pi-download"></i>
+            </button>
+            <button
+              class="btn-action btn-delete"
+              (click)="deleteDocument(documento)"
+              [title]="'eliminar' | translate"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredModulosDocumentos.length === 0" class="empty-state">
+    <i class="pi pi-inbox"></i>
+    <h3>{{ 'noData' | translate }}</h3>
+    <p>{{ 'noData' | translate }}</p>
+  </div>
+</div>

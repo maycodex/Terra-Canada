@@ -1,0 +1,61 @@
+<div class="tarjetas-layout">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <main class="tarjetas-content">
+    <!-- Top Header -->
+    <app-top-header></app-top-header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <h1>{{ 'tarjetas' | translate }}</h1>
+        <p class="header-subtitle">{{ 'gestionTarjetas' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="content-container">
+      <!-- Tarjetas List -->
+      <app-tarjetas-list></app-tarjetas-list>
+
+      <!-- Action Section -->
+      <div class="action-section">
+        <div class="action-box">
+          <div class="action-header">
+            <div class="action-title">
+              <i class="pi pi-plus-circle"></i>
+              {{ 'anadirNuevaTarjeta' | translate }}
+            </div>
+          </div>
+
+          <div class="action-form-wrapper">
+            <div class="action-select">
+              <label for="action-select">{{ 'accion' | translate }}</label>
+              <select
+                id="action-select"
+                [(ngModel)]="selectedAction"
+                (change)="onActionChange()"
+                class="action-dropdown"
+              >
+                <option value="">{{ 'seleccione' | translate }}...</option>
+                <option value="nueva-tarjeta">{{ 'anadirNuevaTarjeta' | translate }}</option>
+                <option value="recargar-saldo">{{ 'recargarSaldo' | translate }}</option>
+              </select>
+            </div>
+
+            <!-- Form Container -->
+            <div *ngIf="showForm" class="form-container">
+              <app-tarjetas-form
+                [actionType]="selectedAction"
+                (onSubmit)="onFormSubmit()"
+                (onCancel)="closeForm()"
+              ></app-tarjetas-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

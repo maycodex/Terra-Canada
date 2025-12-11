@@ -1,0 +1,45 @@
+<div class="financieros-tarjetas-layout">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <main class="financieros-tarjetas-content">
+    <!-- Top Header -->
+    <app-top-header></app-top-header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <h1>{{ 'financierosTarjetas' | translate }}</h1>
+        <p class="header-subtitle">{{ 'gestionPagosTarjetas' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="content-container">
+      <!-- New Payment Button -->
+      <button
+        class="btn-new-payment"
+        (click)="togglePaymentForm()"
+        [class.active]="showPaymentForm"
+      >
+        <i class="pi" [ngClass]="showPaymentForm ? 'pi-chevron-up' : 'pi-plus'"></i>
+        <span>{{ (showPaymentForm ? 'ocultar' : 'nuevoRegistroPago') | translate }}</span>
+      </button>
+
+      <!-- Payment Form -->
+      <app-payment-form
+        [form]="paymentForm"
+        [isVisible]="showPaymentForm"
+        (submit)="onSubmitPayment()"
+        (cancel)="onCancel()"
+      ></app-payment-form>
+
+      <!-- Document Upload Section -->
+      <app-document-upload></app-document-upload>
+
+      <!-- Payment Records Table -->
+      <app-card-payment-records></app-card-payment-records>
+    </div>
+  </main>
+</div>

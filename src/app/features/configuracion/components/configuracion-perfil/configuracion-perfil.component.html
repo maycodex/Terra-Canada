@@ -1,0 +1,151 @@
+<div class="perfil-section">
+  <!-- Perfil Header -->
+  <div class="perfil-header">
+    <div class="perfil-avatar">
+      <i class="pi pi-user"></i>
+    </div>
+    <div class="perfil-info">
+      <h2>{{ profileForm.nombre }} {{ profileForm.apellido }}</h2>
+      <p>{{ profileForm.cargo }} - {{ profileForm.empresa }}</p>
+    </div>
+    <button
+      class="btn-edit"
+      (click)="toggleEdit()"
+      [disabled]="isSaving"
+    >
+      <i [ngClass]="isEditing ? 'pi pi-times' : 'pi pi-pencil'"></i>
+      {{ isEditing ? 'cancelar' : 'editar' | translate }}
+    </button>
+  </div>
+
+  <!-- Perfil Form -->
+  <div class="perfil-form" [class.editing]="isEditing">
+    <div class="form-section">
+      <h3>{{ 'informacionPersonal' | translate }}</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">{{ 'nombre' | translate }}</label>
+          <input
+            id="nombre"
+            type="text"
+            [(ngModel)]="profileForm.nombre"
+            name="nombre"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="apellido">{{ 'apellido' | translate }}</label>
+          <input
+            id="apellido"
+            type="text"
+            [(ngModel)]="profileForm.apellido"
+            name="apellido"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">{{ 'email' | translate }}</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="profileForm.email"
+            name="email"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="telefono">{{ 'telefono' | translate }}</label>
+          <input
+            id="telefono"
+            type="tel"
+            [(ngModel)]="profileForm.telefono"
+            name="telefono"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>{{ 'informacionProfesional' | translate }}</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="empresa">{{ 'empresa' | translate }}</label>
+          <input
+            id="empresa"
+            type="text"
+            [(ngModel)]="profileForm.empresa"
+            name="empresa"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="cargo">{{ 'cargo' | translate }}</label>
+          <input
+            id="cargo"
+            type="text"
+            [(ngModel)]="profileForm.cargo"
+            name="cargo"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pais">{{ 'pais' | translate }}</label>
+          <input
+            id="pais"
+            type="text"
+            [(ngModel)]="profileForm.pais"
+            name="pais"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ciudad">{{ 'ciudad' | translate }}</label>
+          <input
+            id="ciudad"
+            type="text"
+            [(ngModel)]="profileForm.ciudad"
+            name="ciudad"
+            [readonly]="!isEditing"
+            class="form-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div *ngIf="isEditing" class="form-actions">
+      <button
+        type="button"
+        class="btn-cancel"
+        (click)="cancelEdit()"
+        [disabled]="isSaving"
+      >
+        <i class="pi pi-times"></i>
+        {{ 'cancelar' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn-save"
+        (click)="saveChanges()"
+        [disabled]="isSaving"
+      >
+        <i [ngClass]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"></i>
+        {{ isSaving ? 'guardando' : 'guardarCambios' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

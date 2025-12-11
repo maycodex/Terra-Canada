@@ -1,0 +1,212 @@
+<div class="tarjetas-form-wrapper">
+  <div class="form-header">
+    <h3>
+      <i [ngClass]="'pi ' + getFormIcon()"></i>
+      {{ getFormTitle() }}
+    </h3>
+  </div>
+
+  <!-- Nueva Tarjeta Form -->
+  <form *ngIf="actionType === 'nueva-tarjeta'" (ngSubmit)="submitForm()" class="form-content">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nombreTitular">{{ 'nombreTitular' | translate }}</label>
+        <input
+          id="nombreTitular"
+          type="text"
+          [(ngModel)]="nuevaTarjetaForm.nombreTitular"
+          name="nombreTitular"
+          placeholder="Ej: Juan"
+          class="form-input"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="apellidoTitular">{{ 'nombreTitular' | translate }}</label>
+        <input
+          id="apellidoTitular"
+          type="text"
+          [(ngModel)]="nuevaTarjetaForm.apellidoTitular"
+          name="apellidoTitular"
+          placeholder="Ej: Pérez"
+          class="form-input"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tipoTarjeta">{{ 'tipoTarjeta' | translate }}</label>
+        <select
+          id="tipoTarjeta"
+          [(ngModel)]="nuevaTarjetaForm.tipoTarjeta"
+          name="tipoTarjeta"
+          class="form-input"
+        >
+          <option value="debito">{{ 'debito' | translate }}</option>
+          <option value="credito">{{ 'credito' | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="moneda">{{ 'monedaLabel' | translate }}</label>
+        <select
+          id="moneda"
+          [(ngModel)]="nuevaTarjetaForm.moneda"
+          name="moneda"
+          class="form-input"
+        >
+          <option value="CAD">CAD</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR (Euro)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="limiteCredito">{{ 'monto' | translate }} ($)</label>
+        <input
+          id="limiteCredito"
+          type="number"
+          [(ngModel)]="nuevaTarjetaForm.limiteCredito"
+          name="limiteCredito"
+          placeholder="Ej: 10000"
+          class="form-input"
+          min="1000"
+          max="100000"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="correoElectronico">{{ 'email' | translate }}</label>
+        <input
+          id="correoElectronico"
+          type="email"
+          [(ngModel)]="nuevaTarjetaForm.correoElectronico"
+          name="correoElectronico"
+          placeholder="Ej: usuario@example.com"
+          class="form-input"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="telefonoContacto">{{ 'telefonoContacto' | translate }}</label>
+        <input
+          id="telefonoContacto"
+          type="tel"
+          [(ngModel)]="nuevaTarjetaForm.telefonoContacto"
+          name="telefonoContacto"
+          placeholder="Ej: +1 (555) 123-4567"
+          class="form-input"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="cancel()" class="btn-cancel">
+        <i class="pi pi-times"></i>
+        {{ 'cancelar' | translate }}
+      </button>
+      <button type="submit" class="btn-submit">
+        <i class="pi pi-check"></i>
+        {{ 'guardar' | translate }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Recargar Saldo Form -->
+  <form *ngIf="actionType === 'recargar-saldo'" (ngSubmit)="submitForm()" class="form-content">
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="tarjetaSeleccionada">{{ 'seleccione' | translate }} {{ 'tarjetas' | translate }}</label>
+        <select
+          id="tarjetaSeleccionada"
+          [(ngModel)]="recargarSaldoForm.tarjetaSeleccionada"
+          name="tarjetaSeleccionada"
+          class="form-input"
+          required
+        >
+          <option value="">-- {{ 'seleccione' | translate }} --</option>
+          <option *ngFor="let tarjeta of tarjetasDisponibles" [value]="tarjeta.id">
+            {{ tarjeta.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="montoRecarga">{{ 'monto' | translate }} ($)</label>
+        <input
+          id="montoRecarga"
+          type="number"
+          [(ngModel)]="recargarSaldoForm.montoRecarga"
+          name="montoRecarga"
+          placeholder="Ej: 5000"
+          class="form-input"
+          min="100"
+          max="50000"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="metodoPago">{{ 'metodoPago' | translate }}</label>
+        <select
+          id="metodoPago"
+          [(ngModel)]="recargarSaldoForm.metodoPago"
+          name="metodoPago"
+          class="form-input"
+        >
+          <option value="transferencia">{{ 'transferencia' | translate }}</option>
+          <option value="tarjeta">{{ 'credito' | translate }}</option>
+          <option value="cheque">{{ 'cheque' | translate }}</option>
+          <option value="efectivo">{{ 'efectivo' | translate }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="referencia">{{ 'referencia' | translate }}</label>
+        <input
+          id="referencia"
+          type="text"
+          [(ngModel)]="recargarSaldoForm.referencia"
+          name="referencia"
+          placeholder="Ej: REF-2024-001"
+          class="form-input"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="descripcion">{{ 'descripcion' | translate }}</label>
+        <textarea
+          id="descripcion"
+          [(ngModel)]="recargarSaldoForm.descripcion"
+          name="descripcion"
+          placeholder="Ej: Recarga para gastos de viaje"
+          class="form-input form-textarea"
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="cancel()" class="btn-cancel">
+        <i class="pi pi-times"></i>
+        {{ 'cancelar' | translate }}
+      </button>
+      <button type="submit" class="btn-submit">
+        <i class="pi pi-check"></i>
+        {{ 'recargarSaldo' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

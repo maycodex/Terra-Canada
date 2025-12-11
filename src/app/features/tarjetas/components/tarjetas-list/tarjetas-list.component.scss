@@ -1,0 +1,314 @@
+.tarjetas-list {
+  .tarjetas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+
+    .tarjeta-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+      }
+
+      .tarjeta-visual {
+        height: 180px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px 12px 0 0;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          right: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+          pointer-events: none;
+        }
+
+        &.moneda-cad {
+          background: linear-gradient(135deg, #2d7a7a 0%, #1f5555 100%);
+        }
+
+        &.moneda-usd {
+          background: linear-gradient(135deg, #6b7d7d 0%, #4d5d5d 100%);
+        }
+
+        .tarjeta-chip {
+          width: 56px;
+          height: 44px;
+          background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #333333;
+          font-size: 26px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tarjeta-numero {
+          font-size: 20px;
+          font-weight: 600;
+          letter-spacing: 3px;
+          font-family: 'Courier New', monospace;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tarjeta-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          .tarjeta-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .tarjeta-tipo {
+              font-size: 10px;
+              opacity: 0.85;
+              text-transform: uppercase;
+              letter-spacing: 1.5px;
+              font-weight: 600;
+            }
+
+            .tarjeta-chip-id {
+              font-size: 13px;
+              font-weight: 700;
+              letter-spacing: 0.5px;
+            }
+          }
+
+          .tarjeta-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+
+      .tarjeta-details {
+        padding: 16px;
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          font-size: 12px;
+
+          .detail-label {
+            color: #333333;
+            font-weight: 600;
+          }
+
+          .detail-value {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+
+            &.status-activa {
+              background: #e8f5e9;
+              color: #2e7d32;
+            }
+
+            &.status-bloqueada {
+              background: #ffebee;
+              color: #c62828;
+            }
+
+            &.status-suspendida {
+              background: #fff3e0;
+              color: #e65100;
+            }
+          }
+
+          .detail-percentage {
+            color: #666666;
+            font-weight: 600;
+          }
+        }
+
+        .progress-bar {
+          width: 100%;
+          height: 6px;
+          background: #e0e0e0;
+          border-radius: 3px;
+          overflow: hidden;
+          margin-bottom: 12px;
+
+          .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+          }
+        }
+
+        .alert-message {
+          background: #ffebee;
+          border: 1px solid #ef5350;
+          border-radius: 4px;
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 11px;
+          color: #c62828;
+          font-weight: 600;
+
+          i {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Dark Theme */
+html.dark-theme {
+  .tarjetas-list {
+    .tarjetas-grid {
+      .tarjeta-card {
+        background: #2d2d2d;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        &:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .tarjeta-visual {
+          &.moneda-cad {
+            background: linear-gradient(135deg, #4a9b9b 0%, #2d6b6b 100%);
+          }
+
+          &.moneda-usd {
+            background: linear-gradient(135deg, #6b7d7d 0%, #4d5d5d 100%);
+          }
+
+          .tarjeta-chip {
+            background: rgba(255, 215, 0, 0.85);
+          }
+        }
+
+        .tarjeta-details {
+          .detail-row {
+            .detail-label {
+              color: #e0e0e0;
+            }
+
+            .detail-value {
+              &.status-activa {
+                background: #1b5e20;
+                color: #81c784;
+              }
+
+              &.status-bloqueada {
+                background: #b71c1c;
+                color: #ef5350;
+              }
+
+              &.status-suspendida {
+                background: #e65100;
+                color: #ffb74d;
+              }
+            }
+
+            .detail-percentage {
+              color: #b0b0b0;
+            }
+          }
+
+          .progress-bar {
+            background: #444444;
+          }
+
+          .alert-message {
+            background: #5f2c2c;
+            border-color: #c62828;
+            color: #ef5350;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .tarjetas-list {
+    .tarjetas-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .tarjetas-list {
+    .tarjetas-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+
+      .tarjeta-card {
+        .tarjeta-visual {
+          height: 140px;
+          padding: 16px;
+
+          .tarjeta-chip {
+            width: 40px;
+            height: 32px;
+            font-size: 18px;
+          }
+
+          .tarjeta-numero {
+            font-size: 14px;
+          }
+
+          .tarjeta-footer {
+            .tarjeta-logo {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .tarjeta-details {
+          padding: 12px;
+
+          .detail-row {
+            margin-bottom: 8px;
+            font-size: 11px;
+          }
+
+          .progress-bar {
+            height: 5px;
+            margin-bottom: 8px;
+          }
+
+          .alert-message {
+            padding: 6px 10px;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
